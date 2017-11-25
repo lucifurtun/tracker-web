@@ -3,7 +3,27 @@
 
     <div class="row">
         <div class="col-lg-6">
-            Here we'll list the devices.
+            <div class="card">
+                <div class="card-header">Devices</div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Serial Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let device of devices; let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{device.id}}</td>
+                            <td>{{device.serialNumber}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
