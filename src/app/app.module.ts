@@ -9,6 +9,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './shared';
+import {Apollo, ApolloModule} from 'apollo-angular';
+import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -22,6 +25,8 @@ export function createTranslateLoader(http: HttpClient) {
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        ApolloModule,
+        HttpLinkModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -36,4 +41,12 @@ export function createTranslateLoader(http: HttpClient) {
     bootstrap: [AppComponent]
 })
 export class AppModule {
+    constructor(apollo: Apollo, httpLink: HttpLink) {
+        apollo.create({
+            // By default, this client will send queries to the
+            // `/graphql` endpoint on the same host
+            link: httpLink.create({uri: 'http://127.0.0.1:8000/graphql/'}),
+            cache: new InMemoryCache()
+        });
+    }
 }
