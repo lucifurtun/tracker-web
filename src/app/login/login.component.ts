@@ -5,25 +5,20 @@ import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 
 
-const LogInQuery = gql`
-mutation {
-    login(username: "lucianfurtun@gmail.com", password: "apollo"){
-        user {
-            token
-        }
-    }
-}
-`;
-
-
 @Component({
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-    loading: boolean;
-    currentUser: any;
+    mutation = gql`
+        mutation login($email: String, $password: String) {
+            login(email: $email, password: $password){
+                user {
+                    token
+                }
+            }
+        }`;
 
     constructor(public router: Router, private apollo: Apollo) {
     }
@@ -31,16 +26,17 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
     }
 
-    onLoggedin() {
-        // localStorage.setItem('isLoggedin', 'true');
-        this.apollo.query<any>({query: gql`{ hello }`}).toPromise().then(console.log);
+    onSubmit($event, form) {
+        $event.preventDefault();
 
-        // this.apollo.watchQuery<any>({
-        //     query: LogInQuery
-        // })
-        //     .valueChanges
-        //     .subscribe(({data}) => {
-        //         console.log(data);
-        //     });
+        const body = form.value;
+        // localStorage.setItem('isLoggedin', 'true');
+        this.apollo.mutate<any>({
+            mutation: this.mutation,
+            variables: {email: body.email, password: body.password}
+        }).toPromise().then((data) => {
+            localStorage.setItem('token', data.data.login.user.token);
+            this.router.navigateByUrl('/');
+        });
     }
 }

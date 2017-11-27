@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        localStorage.removeItem('token');
     }
 
     changeLang(language: string) {

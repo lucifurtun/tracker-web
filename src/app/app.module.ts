@@ -12,6 +12,7 @@ import {AuthGuard} from './shared';
 import {Apollo, ApolloModule} from 'apollo-angular';
 import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
+import {FormsModule} from '@angular/forms';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -23,6 +24,7 @@ export function createTranslateLoader(http: HttpClient) {
     imports: [
         CommonModule,
         BrowserModule,
+        FormsModule,
         BrowserAnimationsModule,
         HttpClientModule,
         ApolloModule,
