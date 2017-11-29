@@ -13,6 +13,7 @@ import {Apollo, ApolloModule} from 'apollo-angular';
 import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {FormsModule} from '@angular/forms';
+import {ApolloLink, concat} from 'apollo-link';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -44,10 +45,23 @@ export function createTranslateLoader(http: HttpClient) {
 })
 export class AppModule {
     constructor(apollo: Apollo, httpLink: HttpLink) {
+        const link = httpLink.create({uri: 'http://127.0.0.1:8000/graphql/'});
+
+        const authMiddleware = new ApolloLink((operation, forward) => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                operation.setContext({
+                    headers: {
+                        Authorization: `JWT ${token}`,
+                    }
+                });
+            }
+
+            return forward(operation);
+        });
+
         apollo.create({
-            // By default, this client will send queries to the
-            // `/graphql` endpoint on the same host
-            link: httpLink.create({uri: 'http://127.0.0.1:8000/graphql/'}),
+            link: concat(authMiddleware, link),
             cache: new InMemoryCache()
         });
     }
