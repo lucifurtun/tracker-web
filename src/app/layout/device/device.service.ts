@@ -4,18 +4,33 @@ import gql from 'graphql-tag';
 
 @Injectable()
 export class DeviceService {
-    private getDevicesQuery = gql`
-        query {
-            devices {
-                id,
-                serialNumber
-            }
-        }`;
-
     constructor(private apollo: Apollo) {
     }
 
     getDevices() {
-        return this.apollo.query({query: this.getDevicesQuery}).toPromise();
+        const query = gql`
+            query {
+                devices {
+                    id,
+                    serialNumber
+                }
+            }`;
+
+        return this.apollo.query({query: query}).toPromise();
+    }
+
+    getDevice(id: number) {
+        const query = gql`
+            query device($id: Int){
+                device(id:$id){
+                    serialNumber
+                    latestPosition{
+                        lat,
+                        lng,
+                    }
+                }
+            }`;
+
+        return this.apollo.query({query: query, variables: {id: id}}).toPromise();
     }
 }

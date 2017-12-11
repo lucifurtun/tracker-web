@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Device'" [icon]="'fa-server'"></app-page-header>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">Device</div>
+                <div class="card-body" *ngIf="device">
+                    Serial Number: {{device.serialNumber}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header">Last Known Position</div>
+                <div class="card-body" *ngIf="device">
+                    <div>
+                        <agm-map
+                            [latitude]="device.latestPosition.lat"
+                            [longitude]="device.latestPosition.lng"
+                            [zoom]="16">
+
+                            <agm-marker
+                                [latitude]="device.latestPosition.lat"
+                                [longitude]="device.latestPosition.lng">
+                            </agm-marker>
+                        </agm-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
