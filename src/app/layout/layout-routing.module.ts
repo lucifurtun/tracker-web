@@ -21,9 +21,9 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            {path: '', redirectTo: 'devices'},
             {path: 'positions', loadChildren: './position/position.module#PositionModule'},
             {path: 'devices', loadChildren: './device/device.module#DeviceModule'},
+            {path: '**', redirectTo: 'devices'},
         ]
     }
 ];
