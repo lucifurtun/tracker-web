@@ -13,6 +13,7 @@ import {id} from '@swimlane/ngx-datatable/release/utils';
     animations: [routerTransition()],
 })
 export class DeviceDetailComponent implements OnInit {
+    private socket: WebSocket;
     device: Device;
 
     constructor(private route: ActivatedRoute, private service: DeviceService) {
@@ -23,5 +24,11 @@ export class DeviceDetailComponent implements OnInit {
         this.service.getDevice(id).then((data: any) => {
             this.device = data.data.device;
         });
+
+        this.socket = new WebSocket('ws://127.0.0.1:8000');
+        this.socket.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+            this.device = {...this.device, latestPosition: {lat: data.lat, lng: data.lng}};
+        };
     }
 }

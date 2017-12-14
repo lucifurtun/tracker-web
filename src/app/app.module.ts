@@ -14,7 +14,6 @@ import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {FormsModule} from '@angular/forms';
 import {ApolloLink, concat} from 'apollo-link';
-import {AgmCoreModule} from '@agm/core';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
