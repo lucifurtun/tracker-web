@@ -5,9 +5,8 @@ import {PageHeaderModule} from '../../shared';
 import {DeviceRoutingModule} from './device-routing.module';
 import {DeviceComponent} from './device.component';
 import {DeviceDetailComponent} from './components/detail/detail.component';
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {BrowserModule} from '@angular/platform-browser';
 import {AgmCoreModule} from '@agm/core';
+import {MapComponent} from '../components/map/map.component';
 
 @NgModule({
     imports: [
@@ -16,7 +15,7 @@ import {AgmCoreModule} from '@agm/core';
         PageHeaderModule,
         AgmCoreModule.forRoot({apiKey: 'AIzaSyCn7nDVAgxdIjZbuv8QqEo5Ox15MYTCWVA'})
     ],
-    declarations: [DeviceComponent, DeviceDetailComponent]
+    declarations: [DeviceComponent, DeviceDetailComponent, MapComponent]
 })
 export class DeviceModule {
 }

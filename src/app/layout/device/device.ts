@@ -7,5 +7,5 @@ export class Position {
 export class Device {
     id: number;
     serialNumber: string;
-    latestPosition: Position;
+    lastPosition: Position;
 }

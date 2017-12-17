@@ -24,7 +24,7 @@ export class DeviceService {
             query device($id: Int){
                 device(id:$id){
                     serialNumber
-                    latestPosition{
+                    lastPosition{
                         lat,
                         lng,
                     }

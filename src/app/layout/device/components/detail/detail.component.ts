@@ -3,7 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {DeviceService} from '../../device.service';
 import {Device} from '../../device';
 import {routerTransition} from '../../../../router.animations';
-import {id} from '@swimlane/ngx-datatable/release/utils';
+import {environment} from '../../../../../environments/environment';
+
 
 @Component({
     selector: 'app-detail',
@@ -20,15 +21,20 @@ export class DeviceDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-        this.service.getDevice(id).then((data: any) => {
-            this.device = data.data.device;
+        this.route.params.subscribe((params) => {
+            console.log(params);
+            const id = parseInt(params['id'], 10);
+            this.service.getDevice(id).then((data: any) => {
+                this.device = data.data.device;
+            });
         });
 
-        this.socket = new WebSocket('ws://127.0.0.1:8000');
+
+        this.socket = new WebSocket(environment.serverWSUrl);
         this.socket.onmessage = (e) => {
             const data = JSON.parse(e.data);
-            this.device = {...this.device, latestPosition: {lat: data.lat, lng: data.lng}};
+            console.log(data);
+            this.device = {...this.device, lastPosition: {lat: data.lat, lng: data.lng}};
         };
     }
 }

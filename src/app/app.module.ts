@@ -14,6 +14,7 @@ import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {FormsModule} from '@angular/forms';
 import {ApolloLink, concat} from 'apollo-link';
+import {environment} from '../environments/environment';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -46,7 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
 })
 export class AppModule {
     constructor(apollo: Apollo, httpLink: HttpLink) {
-        const link = httpLink.create({uri: 'http://127.0.0.1:8000/graphql/'});
+        const link = httpLink.create({uri: `${environment.serverHttpUrl}/graphql/`});
 
         const authMiddleware = new ApolloLink((operation, forward) => {
             const token = localStorage.getItem('token');

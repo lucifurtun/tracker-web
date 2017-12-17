@@ -14,20 +14,19 @@
     <div class="row mt-3">
         <div class="col-lg-10">
             <div class="card">
+
                 <div class="card-header">Last Known Position</div>
                 <div class="card-body" *ngIf="device">
-                    <div>
-                        <agm-map
-                            [latitude]="device.latestPosition.lat"
-                            [longitude]="device.latestPosition.lng"
+                    <div *ngIf="device.lastPosition; else noLatestPosition">
+                        <app-map
+                            [lat]="device.lastPosition.lat"
+                            [lng]="device.lastPosition.lng"
                             [zoom]="16">
-
-                            <agm-marker
-                                [latitude]="device.latestPosition.lat"
-                                [longitude]="device.latestPosition.lng">
-                            </agm-marker>
-                        </agm-map>
+                        </app-map>
                     </div>
+                    <ng-template #noLatestPosition>
+                        Last position is unknown.
+                    </ng-template>
                 </div>
             </div>
         </div>
