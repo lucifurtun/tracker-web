@@ -18,7 +18,7 @@
                         <tr *ngFor="let device of devices; let i = index">
                             <th scope="row">{{i + 1}}</th>
                             <td>{{device.id}}</td>
-                            <td>{{device.serialNumber}}</td>
+                            <td><a [routerLink]="['/devices/', device.id]">{{device.serialNumber}}</a></td>
                         </tr>
                         </tbody>
                     </table>

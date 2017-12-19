@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {routerTransition} from '../../router.animations';
-import {Device} from './device';
-import {DeviceService} from './device.service';
+import {DeviceService} from '../../device.service';
+import {Device} from '../../device';
+import {routerTransition} from '../../../../router.animations';
 
 @Component({
-    selector: 'app-position',
-    templateUrl: './device.component.html',
-    styleUrls: ['./device.component.scss'],
+    selector: 'app-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
     animations: [routerTransition()],
     providers: [DeviceService]
 })
-export class DeviceComponent implements OnInit {
+export class DeviceListComponent implements OnInit {
     devices: Device[];
 
     constructor(private service: DeviceService) {

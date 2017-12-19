@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 
 import {PageHeaderModule} from '../../shared';
 import {DeviceRoutingModule} from './device-routing.module';
-import {DeviceComponent} from './device.component';
 import {DeviceDetailComponent} from './components/detail/detail.component';
 import {AgmCoreModule} from '@agm/core';
 import {MapComponent} from '../components/map/map.component';
+import {DeviceListComponent} from './components/list/list.component';
 
 @NgModule({
     imports: [
@@ -15,7 +15,7 @@ import {MapComponent} from '../components/map/map.component';
         PageHeaderModule,
         AgmCoreModule.forRoot({apiKey: 'AIzaSyCn7nDVAgxdIjZbuv8QqEo5Ox15MYTCWVA'})
     ],
-    declarations: [DeviceComponent, DeviceDetailComponent, MapComponent]
+    declarations: [DeviceDetailComponent, MapComponent, DeviceListComponent]
 })
 export class DeviceModule {
 }
